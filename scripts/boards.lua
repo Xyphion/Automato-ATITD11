@@ -170,19 +170,21 @@ srReadScreen();
 end
 
 function waitForStats()
-  while 1 do
-    checkBreak();
-    srReadScreen();
-    local stats = srFindImage("stats/endurance.png");
-    local buff = srFindImage("stats/enduranceBuff.png");
-    local message = "Waiting for Endurance timer to be visible and white";
-    if autoOnion and buff == nil then
-      message = message .. "\n\nYou checked Auto-Eat onions.\nCan\'t find pinned grilled onion!";
-    end
-    if stats then
-      sleepWithStatus(999, message);
-    else
-      break;
+  if carpShop then
+    while 1 do
+      checkBreak();
+      srReadScreen();
+      local stats = srFindImage("stats/endurance.png");
+      local buff = srFindImage("stats/enduranceBuff.png");
+      local message = "Waiting for Endurance timer to be visible and white";
+      if autoOnion and buff == nil then
+        message = message .. "\n\nYou checked Auto-Eat onions.\nCan't find pinned grilled onion!";
+      end
+      if stats then
+        sleepWithStatus(999, message);
+      else
+        break;
+      end
     end
   end
 end
